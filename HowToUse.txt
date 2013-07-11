@@ -1,0 +1,8 @@
+﻿1. Use the Xenu crawler to get list of links and save to text file
+2. export the file to the /xenulinks folder in the site scraper project
+3. browse to sitescraper
+4. use the top form to filter any links out of the files (email this page links)
+5. the submission creates a new file in the /sitelinks folder that you should see in the drop down in the 2nd form
+6. use the second form to save the site to the /sites folder in the project
+7. then you need to go through the html files and update all the paths (css, js, src, href) and make them relative to the assets
+8. zip and send
