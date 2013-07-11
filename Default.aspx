@@ -15,7 +15,7 @@
 			<asp:DropDownList ID="ddlXenu" runat="server"></asp:DropDownList>
 			<asp:Button ID="btnRefreshXenu" OnClick="btnXenuRefresh_Click" Text="refresh" runat="server" />
             <br /><br />
-			<asp:Label ID="lblXenuSeparate" runat="server" AssociatedControlID="chkXenuSeparate" Text="Separate links by type into separate files"></asp:Label>
+			<asp:Label ID="lblXenuSeparate" runat="server" AssociatedControlID="chkXenuSeparate" Text="Separate links by type into separate files (links, images and files)"></asp:Label>
 			<asp:CheckBox ID="chkXenuSeparate" runat="server"></asp:CheckBox>
 			<br /><br />
 			<asp:Label ID="lblXenuFilter" runat="server" AssociatedControlID="txtXenuFilter" Text="Enter Domain You Want to Keep"></asp:Label>

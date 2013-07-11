@@ -41,6 +41,10 @@ namespace SiteScraper
 			}
 		}
 
+		protected void btnXenuRefresh_Click(object sender, EventArgs e) {
+			populateDropDown("xenulinks", ref ddlXenu);
+		}
+		
 		protected void btnXenu_Click(object sender, EventArgs e) {
 			ltlXenu.Text = "";
 			byte[] bytes = GetFileBytes(ddlXenu.SelectedValue);
@@ -72,7 +76,7 @@ namespace SiteScraper
 				bool skipMatch = s.Contains(txtXenuSkip.Text);
 				if (!(filterEmpty || filterMatch) || (!skipEmpty && skipMatch))
 					continue;
-			
+
 				//if you want to separate by type
 				if (chkXenuSeparate.Checked) {
 					//if it's a file
@@ -116,11 +120,7 @@ namespace SiteScraper
 		protected void btnRefresh_Click(object sender, EventArgs e) {
 			populateDropDown("sitelinks", ref ddlFiles);
 		}
-
-		protected void btnXenuRefresh_Click(object sender, EventArgs e) {
-			populateDropDown("xenulinks", ref ddlXenu);
-		}
-
+		
 		protected void btnSubmit_Click(object sender, EventArgs e) {
 			ltlOutput.Text = "";
 			byte[] fbytes = GetFileBytes(ddlFiles.SelectedValue);
@@ -129,7 +129,7 @@ namespace SiteScraper
 			List<string> lines = data.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
 			//messaging
-			ltlOutput.Text += "<span class='info'>" + lines.Count + " urls found.</span><br/>";
+			ltlOutput.Text += string.Format("<span class='info'>{0} urls found.</span><br/>", lines.Count);
 			//try to save each url to a file
 			foreach (string str in lines) {
 
@@ -152,6 +152,7 @@ namespace SiteScraper
 						}
 					//}
 				}
+				//TODO replace links to images and pages with relative or absolute paths
 				WriteBytesToFile(dirPath.ToString() + GetPageName(str), bytes);
 			}
 		}
