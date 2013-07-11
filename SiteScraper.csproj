@@ -1,4 +1,6 @@
-﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -11,6 +13,16 @@
     <RootNamespace>SiteScraper</RootNamespace>
     <AssemblyName>SiteScraper</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,76 +67,7 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="HowToUse.txt" />
-    <Content Include="sites\staging.synvisc.eu\contact-us.html" />
-    <Content Include="sites\staging.synvisc.eu\default.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\about.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\about\Benefits.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\about\Benefits\delaying-tkr.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\about\Benefits\improving-function.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\about\Benefits\preserving-cartilage.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\about\efficacy.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\about\safety-profile.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\about\science.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\about\science\cross-linked-difference.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\contact-us.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\contact-us\contact-us.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\treating.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\treating\candidates.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\treating\injection.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\treating\osteoarthritis-impact.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\treating\patient-resources.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\treating\patient-response.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\treating\treat.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\treating\treat\treat-proactively.html" />
-    <Content Include="sites\staging.synvisc.eu\healthcare\treating\treat\treatment-approach.html" />
-    <Content Include="sites\staging.synvisc.eu\patients.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\contact-us.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\contact-us\contact-us.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\alternative-therapies.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\alternative-therapies\acupuncture.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\alternative-therapies\brace-yourself.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\alternative-therapies\glucosamine.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\alternative-therapies\massage.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\alternative-therapies\nsaids.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\alternative-therapies\pain-relievers.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\alternative-therapies\quality-life.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\alternative-therapies\tai-chi.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-exercise-videos.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\5-reasons-gym.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\9-tricks.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\active-vacation.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\best-foot-forward.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\bike-riding-fun.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\exercise-fun.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\gardening.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\splash.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\walking-wonderful.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\weight-train.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\knee-fitness\working-out.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\nutrition-weight-loss.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\nutrition-weight-loss\4-foods.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\nutrition-weight-loss\dropping-pounds.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\nutrition-weight-loss\nutrition-news.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\nutrition-weight-loss\vitamin-d.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\knee-exercise-center\nutrition-weight-loss\weight-loss-tips.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\synvisc-synvisc-one.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\synvisc-synvisc-one\after-treatment.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\synvisc-synvisc-one\FAQs.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\synvisc-synvisc-one\treatment-expectations.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\understanding-oa.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\understanding-oa\get-diagnosed.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\understanding-oa\healthy-vs-diseased.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\understanding-oa\osteoarthritis-causes.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\understanding-oa\signs-symptoms.html" />
-    <Content Include="sites\staging.synvisc.eu\patients\understanding-oa\treatment-options.html" />
-    <Content Include="sites\staging.synvisc.eu\privacy-policy.html" />
-    <Content Include="sites\staging.synvisc.eu\sitecore\content\SynviscCountriesMaster\Home\privacy-policy.html" />
-    <Content Include="sites\staging.synvisc.eu\sitemap.html" />
-    <Content Include="sites\staging.synvisc.eu\SynviscEU\Home\healthcare\contact-us\contact-us.html" />
-    <Content Include="sites\staging.synvisc.eu\terms-and-conditions.html" />
+    <Content Include="presentation\css\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -140,10 +83,16 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="sitelinks\" />
+    <Folder Include="sites\" />
     <Folder Include="xenulinks\" />
   </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -162,6 +111,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

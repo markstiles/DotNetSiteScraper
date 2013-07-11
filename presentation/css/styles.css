@@ -1,0 +1,38 @@
+﻿body {
+	margin:0px;
+	padding:0px;
+	font-family:Arial;
+	font-size:12px;
+	background-color:#DEDEDE;
+}
+a {
+	color:#C20AFF;
+	text-decoration:underline;
+}
+a:hover {
+	text-decoration:none;
+}
+.wrapper {
+	width:600px;
+	margin:0px auto;
+}
+.section {
+	padding:20px;
+	margin:20px 0;
+	background-color:#cccccc;
+}
+h1 {
+	font-size:14px;
+}
+.error {
+	color:#9933CC;
+}
+.exception {
+	color:#9933CC;
+	font-weight:bold;
+}
+.note {
+	font-weight:bold;
+}
+.info {
+}

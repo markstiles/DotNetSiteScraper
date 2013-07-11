@@ -5,46 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title>site scraping tool</title>
-    <style>
-		body {
-			margin:0px;
-			padding:0px;
-			font-family:Arial;
-			font-size:12px;
-			background-color:#DEDEDE;
-		}
-		a {
-			color:#C20AFF;
-			text-decoration:underline;
-		}
-		a:hover {
-			text-decoration:none;
-		}
-		.wrapper {
-			width:600px;
-			margin:0px auto;
-		}
-		.section {
-			padding:20px;
-			margin:20px 0;
-			background-color:#cccccc;
-		}
-		h1 {
-			font-size:14px;
-		}
-		.error {
-			color:#9933CC;
-		}
-		.exception {
-			color:#9933CC;
-			font-weight:bold;
-		}
-		.note {
-			font-weight:bold;
-		}
-		.info {
-		}
-    </style>
+    <link href="/presentation/css/styles.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -52,15 +13,16 @@
 		<div class="section">
 			<h1>Import Xenu Links</h1>
 			<asp:DropDownList ID="ddlXenu" runat="server"></asp:DropDownList>
-			<br /><br />
+			<asp:Button ID="btnRefreshXenu" OnClick="btnXenuRefresh_Click" Text="refresh" runat="server" />
+            <br /><br />
 			<asp:Label ID="lblXenuSeparate" runat="server" AssociatedControlID="chkXenuSeparate" Text="Separate links by type into separate files"></asp:Label>
 			<asp:CheckBox ID="chkXenuSeparate" runat="server"></asp:CheckBox>
 			<br /><br />
-			<asp:Label ID="lblXenuFilter" runat="server" AssociatedControlID="txtXenuFilter" Text="Enter Domain Filter"></asp:Label>
+			<asp:Label ID="lblXenuFilter" runat="server" AssociatedControlID="txtXenuFilter" Text="Enter Domain You Want to Keep"></asp:Label>
 			<asp:TextBox ID="txtXenuFilter" Text="" runat="server"></asp:TextBox>
 			<br /><br />
-			<asp:Label ID="lblXenuRemove" runat="server" AssociatedControlID="txtXenuRemove" Text="Remove URLs Containing:"></asp:Label>
-			<asp:TextBox ID="txtXenuRemove" Text="" runat="server"></asp:TextBox>
+			<asp:Label ID="lblXenuSkip" runat="server" AssociatedControlID="txtXenuSkip" Text="Skip Entries Containing:"></asp:Label>
+			<asp:TextBox ID="txtXenuSkip" Text="" runat="server"></asp:TextBox>
 			<br /><br />			
 			<asp:Button ID="btnXenu" OnClick="btnXenu_Click" Text="submit" runat="server" />
 			<br /><br />
@@ -75,7 +37,8 @@
 			<asp:CheckBox ID="chkAppendQString" runat="server" />
 			<br /><br />
 			<asp:DropDownList ID="ddlFiles" runat="server"></asp:DropDownList>
-			<br /><br />
+            <asp:Button ID="btnRefresh" OnClick="btnRefresh_Click" Text="refresh" runat="server" />
+            <br /><br />
 			<asp:Button ID="bntSubmit" OnClick="btnSubmit_Click" Text="submit" runat="server" />
 			<br /><br />
 			<asp:Literal ID="ltlOutput" runat="server"></asp:Literal>
