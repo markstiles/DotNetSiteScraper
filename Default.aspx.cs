@@ -67,9 +67,7 @@ namespace SiteScraper
 					continue;
 				//split the line to just the url by getting the first item
 				string s = str.Split(new char[] { '	' })[0];
-				//check for filter
-				//if you should ignore or nothing to track
-
+				
 				bool filterEmpty = txtXenuFilter.Text.Equals("");
 				bool filterMatch = s.Contains(txtXenuFilter.Text);
 				bool skipEmpty = txtXenuSkip.Text.Equals("");
@@ -80,7 +78,7 @@ namespace SiteScraper
 				//if you want to separate by type
 				if (chkXenuSeparate.Checked) {
 					//if it's a file
-					if (s.Contains(".pdf") || s.Contains(".flv") || s.Contains(".swf")) {
+					if (s.Contains(".pdf") || s.Contains(".flv") || s.Contains(".swf") || s.Contains(".css") || s.Contains(".js")) {
 						if (!fileLinks.Contains(s)) {
 							fileLinks.Add(s);
 							sbFiles.AppendLine(s);
@@ -129,12 +127,11 @@ namespace SiteScraper
 			List<string> lines = data.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
 			//messaging
-			ltlOutput.Text += string.Format("<span class='info'>{0} urls found.</span><br/>", lines.Count);
+			ltlOutput.Text += string.Format("<span class='info'>{0} urls processed.</span><br/>", lines.Count);
 			//try to save each url to a file
 			foreach (string str in lines) {
 
 				ltlOutput.Text += string.Format("<br/><span class='info'>{0}</span>", str);
-				byte[] bytes = GetUrlBytes(str.Replace("???", ""));
 
 				//make a folder based on the domain and subfolders
 				List<string> folders = str.Replace("http://", "").Split(new string[] { "?" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -142,32 +139,68 @@ namespace SiteScraper
 
 				//make sure the directory exists
 				StringBuilder dirPath = new StringBuilder(Request.PhysicalApplicationPath + @"sites\");
-				foreach (string f in folders) {
-					//if (!f.Equals("~")) {
-						dirPath.Append(f + @"\");
-						DirectoryInfo fd = new DirectoryInfo(dirPath.ToString());
-						//if not create it
-						if (!fd.Exists) {
-							DirectoryInfo di = System.IO.Directory.CreateDirectory(dirPath.ToString());
+				foreach (string f in folders)
+					dirPath.Append(f + @"\");
+
+				byte[] bytes = GetUrlBytes(str.Replace("???", "").Replace("\r", ""));
+				if (bytes == null)
+					continue;
+
+				//get starting page name from url or file name
+				List<string> uri = str.Split(new string[] { "?" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+				List<string> parts = uri[0].Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+				//set filename
+				string fileName = string.Empty;
+				fileName = parts[parts.Count - 1].Trim();
+				//get querystring if there is one
+				string qString = string.Empty;
+				if (chkAppendQString.Checked && uri.Count > 1)
+					qString = string.Format("_{0}_", uri[1]);
+
+				//get extension and make sure there's a period
+				string extType = (txtHtml.Text.StartsWith(".")) ? txtHtml.Text : string.Format(".{0}", txtHtml.Text);
+
+				//if is page then build a new file name
+				//check page name for exisiting extension type
+				if(fileName.Equals("") && !txtDefaultFile.Text.Trim().Equals("")){
+					fileName = string.Format("{0}{1}{2}", txtDefaultFile.Text, qString, extType);
+					bytes = UpdateLinks(bytes, folders.Count);
+				} else {
+					List<string> fileTypes = new List<string> { ".aspx", ".asp", ".php", ".cf", ".jsp", ".html" };
+					foreach (string s in fileTypes)
+						if (fileName.Contains(s)) {
+							fileName = string.Format("{0}{1}{2}", fileName.Replace(s, ""), qString, extType);
+							bytes = UpdateLinks(bytes, folders.Count);
 						}
-					//}
 				}
 				
-				if (chkLinkPaths.Checked) {
-					string s = encoding.GetString(bytes);
-					//TODO replace links to images and pages with relative or absolute paths
-					//must know the depth to know how many times to recursively add a ../
-					//regex for href="/, href='/, src="/, src='/, 
-					bytes = encoding.GetBytes(s);
-				}
-
-				WriteBytesToFile(dirPath.ToString() + GetPageName(str), bytes);
+				//build page name from parts
+				WriteBytesToFile(string.Format("{0}{1}", dirPath.ToString(), fileName), bytes);
 			}
 		}
 
 		#endregion Page Events
 
 		#region Helpers
+
+		protected byte[] UpdateLinks(byte[] bytes, int folderCount) {
+			if (chkLinkPaths.Checked) {
+				string s = encoding.GetString(bytes);
+				//must know the depth to know how many times to recursively add a ../ and if there's none then it removes the leading /
+				int depth = folderCount - 1;
+				string resPath = string.Empty;
+				for (int i = depth; i > 0; i--) {
+					resPath += "../";
+				}
+				List<string> replace = new List<string>() { "href=\"", "href='", "src=\"", "src='" };
+				foreach (string r in replace) {
+					s = s.Replace(r + "/", r + resPath);
+				}
+				bytes = encoding.GetBytes(s);
+			}
+			return bytes;
+		}
 
 		protected void populateDropDown(string folder, ref DropDownList ddl) {
 
@@ -180,60 +213,6 @@ namespace SiteScraper
 			foreach (FileInfo fi in rgFiles) {
 				ddl.Items.Add(new ListItem(fi.Name, fi.FullName));
 			}
-		}
-
-		protected string GetPageName(string path) {
-			//break up the url by slashes
-			string pageName = "";
-
-			StringBuilder qString = new StringBuilder();
-			if (path.Contains("http")) {
-				List<string> uri = path.Split(new string[] { "?" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-				List<string> parts = uri[0].Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-
-				//build the querystring into a string for the file name
-				pageName = parts[parts.Count - 1];
-				if (chkAppendQString.Checked && uri.Count > 1) {
-					List<string> keyvals = uri[1].Split(new string[] { "&" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-					foreach (string param in keyvals) {
-						List<string> kv = param.Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-						if (kv.Count > 1) {
-							qString.Append("_" + kv[1].Trim());
-						}
-					}
-				}
-			} else if (path.Contains(@"\")) {
-				pageName = System.IO.Path.GetFileName(path);
-			}
-
-			//change to html if requested
-			List<string> fileTypes = new List<string> { ".aspx", ".asp", ".php", ".cf", ".jsp" };
-			string extType = (txtHtml.Text.StartsWith(".")) ? txtHtml.Text : string.Format(".{0}", txtHtml.Text);
-			foreach (string s in fileTypes) {
-				if (pageName.Contains(s)) {
-					pageName = pageName.Replace(s, ".html");
-				}
-			}
-			//need to account for the homepage not just html ones
-			if (pageName.Trim().Equals(""))
-				pageName = string.Format("{0}{1}", txtDefaultFile, extType);
-			if (chkAppendQString.Checked) {
-				List<string> pageParts = pageName.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries).ToList();
-				if (pageParts.Count > 1) {
-					pageParts[pageParts.Count - 2] = pageParts[pageParts.Count - 2] + qString.ToString();
-					StringBuilder sb2 = new StringBuilder();
-					foreach (string part in pageParts) {
-						if (sb2.Length > 0) {
-							sb2.Append(".");
-						}
-						sb2.Append(part);
-					}
-					pageName = sb2.ToString();
-				} else {
-					ltlOutput.Text += "<br/><span class='error'>failed appending qstring: " + qString.ToString() + " to: " + pageName + "</span>";
-				}
-			}
-			return pageName;
 		}
 
 		protected byte[] GetFileBytes(string filePath) {
@@ -263,14 +242,14 @@ namespace SiteScraper
 				response.Close();
 				return b;
 			} catch (WebException ex) {
-				ltlOutput.Text += "<br/><br/><span class='error'>failed on: " + url + "</span><br/><hr/><br/>" + ex.ToString() + "<br/><hr/>";
+				ltlOutput.Text += "<ul class='ex'><li class='exception'>" + ex.ToString() + "</li></ul>";
 				return null;
 			}
 		}
 
 		protected void WriteFileAndMessage(string type, StringBuilder fileContents) {
 			string filePre = Request.PhysicalApplicationPath + @"sitelinks\" + DateTime.Now.ToString("yyyy.MM.dd") + "_";
-			string pageName = GetPageName(ddlXenu.SelectedValue);
+			string pageName = System.IO.Path.GetFileName(ddlXenu.SelectedValue);
 			string mFormat = "<br/><span class='note'>created {0}</span>";
 			string file = string.Format("{0}{1}_{2}.txt", filePre, pageName.Replace(".txt", ""), type);
 			WriteBytesToFile(file, encoding.GetBytes(fileContents.ToString()));
@@ -286,18 +265,14 @@ namespace SiteScraper
 			//make sure the directory exists
 			StringBuilder dirPath = new StringBuilder();
 			foreach (string f in folders) {
-				//if (!f.Equals("~")) {
 				dirPath.Append(f + @"\");
 				try {
 					DirectoryInfo fd = new DirectoryInfo(dirPath.ToString());
-					//if not create it
-					if (!fd.Exists) {
-						DirectoryInfo di = System.IO.Directory.CreateDirectory(dirPath.ToString());
-					}
+					if (!fd.Exists) 
+						System.IO.Directory.CreateDirectory(dirPath.ToString());
 				} catch (Exception ex) {
-					ltlOutput.Text += string.Format("<br/><span class='error'>failed to create directory: {0}</span><br/><br/><div class='exception'>{1}</div><hr/>", dirPath.ToString(), ex.ToString());
+					ltlOutput.Text += string.Format("<ul class='ex'><li class='error'>failed to create directory: {0}</li><li class='exception'>{1}</li></ul>", dirPath.ToString(), ex.ToString());
 				}
-				//}
 			}
 
 			FileStream fileStream = null;
@@ -305,22 +280,15 @@ namespace SiteScraper
 			string path = filePath.Replace("/", @"\").Replace(" ", "").Replace(@"\", "\\");
 			string invalid = new string(Path.GetInvalidPathChars());
 			//strip bad chars
-			foreach (char c in invalid) {
-				if (path.Contains(c)) {
+			foreach (char c in invalid) 
+				if (path.Contains(c)) 
 					path = path.Replace(c.ToString(), "");
-				}
-			}
-
+				
 			try {
-
 				fileStream = new FileStream(path, FileMode.Create);
 				fileStream.Write(content, 0, content.Length);
-
-				//w = new BinaryWriter(fileStream);
-				//w.Write(content); 
-
 			} catch (Exception ex) {
-				ltlOutput.Text += string.Format("<br/><span class='error'>failed to save file: {0}</span><br/><br/><div class='exception'>{1}</div><hr/>", path, ex.ToString());
+				ltlOutput.Text += string.Format("<ul class='ex'><li class='error'>failed to save file: {0}</li><li class='exception'>{1}</li></ul>", path, ex.ToString());
 			} finally {
 				if (w != null)
 					w.Close();
