@@ -31,6 +31,15 @@ namespace SiteScraper {
         protected global::System.Web.UI.WebControls.DropDownList ddlXenu;
         
         /// <summary>
+        /// btnRefreshXenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRefreshXenu;
+        
+        /// <summary>
         /// lblXenuSeparate control.
         /// </summary>
         /// <remarks>
@@ -112,13 +121,49 @@ namespace SiteScraper {
         protected global::System.Web.UI.WebControls.Label lblHtml;
         
         /// <summary>
-        /// chkHtml control.
+        /// txtHtml control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHtml;
+        protected global::System.Web.UI.WebControls.TextBox txtHtml;
+        
+        /// <summary>
+        /// lblLinkPaths control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLinkPaths;
+        
+        /// <summary>
+        /// chkLinkPaths control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkLinkPaths;
+        
+        /// <summary>
+        /// lblDefaultFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDefaultFile;
+        
+        /// <summary>
+        /// txtDefaultFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDefaultFile;
         
         /// <summary>
         /// lblAppendQString control.
@@ -146,6 +191,15 @@ namespace SiteScraper {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlFiles;
+        
+        /// <summary>
+        /// btnRefresh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRefresh;
         
         /// <summary>
         /// bntSubmit control.

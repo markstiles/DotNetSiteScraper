@@ -30,8 +30,14 @@
 		</div>
 		<div class="section">
 			<h1>Scrape Site Links</h1>
-			<asp:Label ID="lblHtml" runat="server" AssociatedControlID="chkHtml" Text="Save pages as .html"></asp:Label>
-			<asp:CheckBox ID="chkHtml" runat="server" />
+			<asp:Label ID="lblHtml" runat="server" AssociatedControlID="txtHtml" Text="Save pages as..."></asp:Label>
+			<asp:TextBox ID="txtHtml" Text=".html" runat="server" />
+			<br /><br />
+			<asp:Label ID="lblLinkPaths" runat="server" AssociatedControlID="chkLinkPaths" Text="Update Links to Absolute Paths"></asp:Label>
+			<asp:CheckBox ID="chkLinkPaths" runat="server" />
+			<br /><br />
+			<asp:Label ID="lblDefaultFile" runat="server" AssociatedControlID="txtDefaultFile" Text="Default Page File Name (default, index, etc.)"></asp:Label>
+			<asp:TextBox ID="txtDefaultFile" Text="default" runat="server" />
 			<br /><br />
 			<asp:Label ID="lblAppendQString" runat="server" AssociatedControlID="chkAppendQString" Text="Append Querystring to Filename"></asp:Label>
 			<asp:CheckBox ID="chkAppendQString" runat="server" />

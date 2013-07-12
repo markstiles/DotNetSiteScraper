@@ -1,38 +1,21 @@
-﻿body {
-	margin:0px;
-	padding:0px;
-	font-family:Arial;
-	font-size:12px;
-	background-color:#DEDEDE;
-}
-a {
-	color:#C20AFF;
-	text-decoration:underline;
-}
-a:hover {
-	text-decoration:none;
-}
-.wrapper {
-	width:600px;
-	margin:0px auto;
-}
-.section {
-	padding:20px;
-	margin:20px 0;
-	background-color:#cccccc;
-}
-h1 {
-	font-size:14px;
-}
-.error {
-	color:#9933CC;
-}
-.exception {
-	color:#9933CC;
-	font-weight:bold;
-}
-.note {
-	font-weight:bold;
-}
-.info {
-}
+﻿* { font-size: 12px; font-family:verdana; }
+body { margin:0px; padding:0px; background-color:#fff; }
+a { color:#C20AFF; text-decoration:underline; }
+a:hover { text-decoration:none; }
+.wrapper { width:600px; margin:0px auto; }
+.section { padding:20px; margin:20px 0; background-color:#eee; border-radius: 3px; border:1px solid #bbb; }
+h1 { font-size:14px; }
+.error { color:#9933CC; }
+.exception { color:#9933CC; font-weight:bold; }
+.note { font-weight:bold; }
+.info { }
+input,
+select,
+textarea { border-radius: 3px; background-color:#fff; border:1px solid #ccc; padding: 2px; }
+input[type='text'],
+select,
+textarea { transition: all 0.25s ease-in-out; }
+input[type='submit'] { background-color:#ccc; border:solid 1px #bbb; }
+input:hover[type='submit'] { background-color:#fffbd3; border:solid 1px #ccc2a3; }
+input:hover[type='text'], 
+input:focus[type='text'] { box-shadow: 0 0 4px #31C6F7; }

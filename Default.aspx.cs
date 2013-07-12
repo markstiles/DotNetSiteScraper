@@ -133,7 +133,7 @@ namespace SiteScraper
 			//try to save each url to a file
 			foreach (string str in lines) {
 
-				ltlOutput.Text += "<br/><span class='info'>" + str +"</span>";
+				ltlOutput.Text += string.Format("<br/><span class='info'>{0}</span>", str);
 				byte[] bytes = GetUrlBytes(str.Replace("???", ""));
 
 				//make a folder based on the domain and subfolders
@@ -152,7 +152,15 @@ namespace SiteScraper
 						}
 					//}
 				}
-				//TODO replace links to images and pages with relative or absolute paths
+				
+				if (chkLinkPaths.Checked) {
+					string s = encoding.GetString(bytes);
+					//TODO replace links to images and pages with relative or absolute paths
+					//must know the depth to know how many times to recursively add a ../
+					//regex for href="/, href='/, src="/, src='/, 
+					bytes = encoding.GetBytes(s);
+				}
+
 				WriteBytesToFile(dirPath.ToString() + GetPageName(str), bytes);
 			}
 		}
@@ -199,19 +207,16 @@ namespace SiteScraper
 			}
 
 			//change to html if requested
-			if (chkHtml.Checked) {
-				List<string> fileTypes = new List<string> { ".aspx", ".asp", ".php" };
-				foreach (string s in fileTypes) {
-					if (pageName.Contains(s)) {
-						pageName = pageName.Replace(s, ".html");
-					}
+			List<string> fileTypes = new List<string> { ".aspx", ".asp", ".php", ".cf", ".jsp" };
+			string extType = (txtHtml.Text.StartsWith(".")) ? txtHtml.Text : string.Format(".{0}", txtHtml.Text);
+			foreach (string s in fileTypes) {
+				if (pageName.Contains(s)) {
+					pageName = pageName.Replace(s, ".html");
 				}
 			}
 			//need to account for the homepage not just html ones
-			if (pageName.Trim().Equals("")) {
-				//TODO:: probably should have a field for a default value
-				pageName = "default.html";
-			}
+			if (pageName.Trim().Equals(""))
+				pageName = string.Format("{0}{1}", txtDefaultFile, extType);
 			if (chkAppendQString.Checked) {
 				List<string> pageParts = pageName.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries).ToList();
 				if (pageParts.Count > 1) {
@@ -290,7 +295,7 @@ namespace SiteScraper
 						DirectoryInfo di = System.IO.Directory.CreateDirectory(dirPath.ToString());
 					}
 				} catch (Exception ex) {
-					ltlOutput.Text += "<br/><span class='error'>failed to create directory: " + dirPath.ToString() + "</span><br/><br/><div class='exception'>" + ex.ToString() + "</div><hr/>";
+					ltlOutput.Text += string.Format("<br/><span class='error'>failed to create directory: {0}</span><br/><br/><div class='exception'>{1}</div><hr/>", dirPath.ToString(), ex.ToString());
 				}
 				//}
 			}
@@ -315,7 +320,7 @@ namespace SiteScraper
 				//w.Write(content); 
 
 			} catch (Exception ex) {
-				ltlOutput.Text += "<br/><span class='error'>failed to save file: " + path + "</span><br/><br/><div class='exception'>" + ex.ToString() + "</div><hr/>";
+				ltlOutput.Text += string.Format("<br/><span class='error'>failed to save file: {0}</span><br/><br/><div class='exception'>{1}</div><hr/>", path, ex.ToString());
 			} finally {
 				if (w != null)
 					w.Close();
