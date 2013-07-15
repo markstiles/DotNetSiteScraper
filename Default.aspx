@@ -22,11 +22,11 @@
 			        <asp:CheckBox ID="chkXenuSeparate" runat="server"></asp:CheckBox>
                 </li>
                 <li>
-                    <asp:Label ID="lblXenuFilter" runat="server" AssociatedControlID="txtXenuFilter" Text="Enter Domain You Want to Keep"></asp:Label>
+                    <asp:Label ID="lblXenuFilter" runat="server" AssociatedControlID="txtXenuFilter" Text="Keep entries containing..."></asp:Label>
 			        <asp:TextBox ID="txtXenuFilter" Text="" runat="server"></asp:TextBox>
                 </li>
                 <li>
-                    <asp:Label ID="lblXenuSkip" runat="server" AssociatedControlID="txtXenuSkip" Text="Skip Entries Containing:"></asp:Label>
+                    <asp:Label ID="lblXenuSkip" runat="server" AssociatedControlID="txtXenuSkip" Text="Skip entries containing..."></asp:Label>
 			        <asp:TextBox ID="txtXenuSkip" Text="" runat="server"></asp:TextBox>
                 </li>
 			</ul>
