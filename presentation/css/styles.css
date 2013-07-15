@@ -8,7 +8,7 @@ a:hover { text-decoration:none; }
 	.section:last-child { width:662px; }
 h1,
 h1 a { font-size:14px; }
-ul { padding-left:25px; }
+ul { padding-left:25px; margin-top:5px; }
 li { margin-bottom:5px; }
 input,
 select,

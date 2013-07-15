@@ -15,6 +15,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace SiteScraper
 {
@@ -30,6 +31,8 @@ namespace SiteScraper
 			}
 		}
 
+		public List<string> fileTypes = new List<string> { ".aspx", ".asp", ".php", ".cfm", ".jsp", ".html" };
+					
 		#region Page Events
 		
 		protected void Page_Load(object sender, EventArgs e) {
@@ -165,13 +168,12 @@ namespace SiteScraper
 				//check page name for exisiting extension type
 				if(fileName.Equals("") && !txtDefaultFile.Text.Trim().Equals("")){
 					fileName = string.Format("{0}{1}{2}", txtDefaultFile.Text, qString, extType);
-					bytes = UpdateLinks(bytes, folders.Count);
+					bytes = UpdateLinks(bytes, folders.Count, extType);
 				} else {
-					List<string> fileTypes = new List<string> { ".aspx", ".asp", ".php", ".cf", ".jsp", ".html" };
 					foreach (string s in fileTypes)
 						if (fileName.Contains(s)) {
 							fileName = string.Format("{0}{1}{2}", fileName.Replace(s, ""), qString, extType);
-							bytes = UpdateLinks(bytes, folders.Count);
+							bytes = UpdateLinks(bytes, folders.Count, extType);
 						}
 				}
 				
@@ -184,7 +186,7 @@ namespace SiteScraper
 
 		#region Helpers
 
-		protected byte[] UpdateLinks(byte[] bytes, int folderCount) {
+		protected byte[] UpdateLinks(byte[] bytes, int folderCount, string newExt) {
 			if (chkLinkPaths.Checked) {
 				string s = encoding.GetString(bytes);
 				//must know the depth to know how many times to recursively add a ../ and if there's none then it removes the leading /
@@ -193,10 +195,29 @@ namespace SiteScraper
 				for (int i = depth; i > 0; i--) {
 					resPath += "../";
 				}
+
+				//replace all the local page urls with relative paths and updated extensions
+				StringBuilder ftSB = new StringBuilder();
+				foreach (string f in fileTypes) {
+					if(ftSB.Length > 0)
+						ftSB.Append("|");
+					ftSB.Append(f);
+				}
+				Regex reg = new Regex(string.Format(@"(href=[""']*/)[\w./-]*.({0})[""']*", ftSB.ToString()));
+				MatchCollection mc = reg.Matches(s);
+				foreach (Match m in mc) {
+					string protocol = m.Groups[1].Value;
+					string fExt = m.Groups[2].Value;
+					string oldURL = m.Value;
+					string newURL = oldURL.Replace(protocol, protocol.Replace("/", resPath)).Replace(fExt, newExt);
+					s = s.Replace(oldURL, newURL);
+				}
+				//update any file/image paths to make them relative.
 				List<string> replace = new List<string>() { "href=\"", "href='", "src=\"", "src='" };
 				foreach (string r in replace) {
 					s = s.Replace(r + "/", r + resPath);
 				}
+
 				bytes = encoding.GetBytes(s);
 			}
 			return bytes;
