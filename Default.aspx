@@ -38,12 +38,16 @@
 			<h1>Scrape Site Links</h1>
 			<ul>
                 <li>
-                    <asp:Label ID="lblHtml" runat="server" AssociatedControlID="txtHtml" Text="Save pages as..."></asp:Label>
-			        <asp:TextBox ID="txtHtml" Text=".html" runat="server" />
-			    </li>
+                    <asp:DropDownList ID="ddlFiles" runat="server"></asp:DropDownList>
+                    <asp:Button ID="btnRefresh" OnClick="btnRefresh_Click" Text="refresh" runat="server" />
+                </li>
                 <li>
                     <asp:Label ID="lblLinkPaths" runat="server" AssociatedControlID="chkLinkPaths" Text="Update Links to Relative Paths"></asp:Label>
 			        <asp:CheckBox ID="chkLinkPaths" Checked="true" runat="server" />
+			    </li>
+                <li>
+                    <asp:Label ID="lblHtml" runat="server" AssociatedControlID="txtHtml" Text="Save pages as..."></asp:Label>
+			        <asp:TextBox ID="txtHtml" Text=".html" runat="server" />
 			    </li>
                 <li>
                     <asp:Label ID="lblDefaultFile" runat="server" AssociatedControlID="txtDefaultFile" Text="Default Page File Name (default, index, etc.)"></asp:Label>
@@ -53,10 +57,6 @@
                     <asp:Label ID="lblAppendQString" runat="server" AssociatedControlID="chkAppendQString" Text="Append Querystring to Filename"></asp:Label>
 			        <asp:CheckBox ID="chkAppendQString" runat="server" />
 			    </li>
-                <li>
-                    <asp:DropDownList ID="ddlFiles" runat="server"></asp:DropDownList>
-                    <asp:Button ID="btnRefresh" OnClick="btnRefresh_Click" Text="refresh" runat="server" />
-                </li>
             </ul>
 			<asp:Button ID="bntSubmit" OnClick="btnSubmit_Click" Text="submit" runat="server" />
 			<div class="output">
