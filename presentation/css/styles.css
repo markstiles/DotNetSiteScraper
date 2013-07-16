@@ -10,6 +10,7 @@ h1,
 h1 a { font-size:14px; }
 ul { padding-left:25px; margin-top:5px; }
 li { margin-bottom:5px; }
+	li textarea { width:600px; height:300px; display:block; margin-top:10px; }
 input,
 select,
 textarea { border-radius: 3px; background-color:#fff; border:1px solid #ccc; padding: 2px; }
@@ -19,7 +20,8 @@ textarea { transition: all 0.25s ease-in-out; }
 input[type='submit'] { background-color:#ccc; border:solid 1px #bbb; }
 input:hover[type='submit'] { background-color:#fffbd3; border:solid 1px #ccc2a3; }
 input:hover[type='text'], 
-input:focus[type='text'] { box-shadow: 0 0 4px #31C6F7; }
+input:focus[type='text'],
+textarea:focus { box-shadow: 0 0 4px #31C6F7; }
 .output { margin-top:10px; border:1px solid #bbb; background-color:#fff; height: 300px; overflow:auto; padding:10px; }
 	.error,
 	.exception { color:#B80028; }

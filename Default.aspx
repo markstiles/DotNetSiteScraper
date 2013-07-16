@@ -1,4 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="SiteScraper._Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" 
+    CodeFile="Default.aspx.cs" 
+    Inherits="SiteScraper._Default" 
+    ValidateRequest="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -57,6 +60,14 @@
                     <asp:Label ID="lblAppendQString" runat="server" AssociatedControlID="chkAppendQString" Text="Append Querystring to Filename"></asp:Label>
 			        <asp:CheckBox ID="chkAppendQString" runat="server" />
 			    </li>
+                <li>
+                    <asp:Label ID="lblRemoveLines" runat="server" AssociatedControlID="chkRemoveLines" Text="Remove Blank Lines"></asp:Label>
+			        <asp:CheckBox ID="chkRemoveLines" Checked="true" runat="server" />
+			    </li>
+                <li>
+                    <asp:Label ID="lblRegEx" runat="server" AssociatedControlID="txtRegEx" Text="Regex Patterns to Strip Content (.NET Viewstate etc) Line Separated"></asp:Label>
+			        <asp:TextBox ID="txtRegEx" runat="server" TextMode="MultiLine"></asp:TextBox>
+                </li>
             </ul>
 			<asp:Button ID="bntSubmit" OnClick="btnSubmit_Click" Text="submit" runat="server" />
 			<div class="output">

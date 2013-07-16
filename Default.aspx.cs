@@ -170,11 +170,42 @@ namespace SiteScraper
 					fileName = string.Format("{0}{1}{2}", txtDefaultFile.Text, qString, extType);
 					bytes = UpdateLinks(bytes, folders.Count, extType);
 				} else {
-					foreach (string s in fileTypes)
+					foreach (string s in fileTypes) {
 						if (fileName.Contains(s)) {
 							fileName = string.Format("{0}{1}{2}", fileName.Replace(s, ""), qString, extType);
 							bytes = UpdateLinks(bytes, folders.Count, extType);
+							
+							//strip regex patterns from files
+							string regItems = txtRegEx.Text;
+							string body = encoding.GetString(bytes);
+							if (!string.IsNullOrEmpty(regItems)) {
+								List<string> rLines = regItems.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+								foreach (string rl in rLines) {
+									try {
+										body = Regex.Replace(body, rl, string.Empty);
+									} catch (ArgumentException ae) { }
+								}
+							}
+
+							if (chkRemoveLines.Checked) {
+								//get rid of empty lines
+								List<string> bLines = body.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+								List<int> removes = new List<int>();
+								int i = 0;
+								foreach (string bl in bLines) {
+									if (string.IsNullOrWhiteSpace(bl))
+										removes.Add(i);
+									i++;
+								}
+								removes.Reverse();
+								foreach (int j in removes)
+									bLines.RemoveAt(j);
+								body = string.Join(string.Empty, bLines.ToArray());
+							}
+
+							bytes = encoding.GetBytes(body);
 						}
+					}
 				}
 				
 				//build page name from parts
