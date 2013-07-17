@@ -1,0 +1,4 @@
+//strips aspnet viewstate
+<input[ \w\="']* id=['"]*__VIEWSTATE['"]* value=['"]*[\w/\+]*['"]*[ ]*/>
+//strips aspNetHidden
+<div class="aspNetHidden">[\s\w_\=\+"'</>]*</div>
