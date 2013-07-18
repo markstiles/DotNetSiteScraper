@@ -65,7 +65,10 @@
     <Content Include="Default.aspx" />
     <Content Include="HowToUse.txt" />
     <Content Include="presentation\css\styles.css" />
-    <Content Include="Web.config" />
+    <Content Include="regex-replacements.txt" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">

@@ -67,6 +67,7 @@
                 <li>
                     <asp:Label ID="lblRegEx" runat="server" AssociatedControlID="txtRegEx" Text="Regex Patterns to Strip Content (.NET Viewstate etc) Line Separated"></asp:Label>
 			        <asp:TextBox ID="txtRegEx" runat="server" TextMode="MultiLine"></asp:TextBox>
+                    <div class=""><a href="/regex-replacements.txt" target="_blank">See Samples</a></div>
                 </li>
             </ul>
 			<asp:Button ID="bntSubmit" OnClick="btnSubmit_Click" Text="submit" runat="server" />
