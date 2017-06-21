@@ -1,0 +1,7 @@
+bin/
+obj/
+sitelinks/
+.vs/
+*.user
+sites/
+xenulinks/

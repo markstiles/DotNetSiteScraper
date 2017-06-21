@@ -137,7 +137,7 @@ namespace SiteScraper
 				ltlOutput.Text += string.Format("<br/><span class='info'>{0}</span>", str);
 
 				//make a folder based on the domain and subfolders
-				List<string> folders = str.Replace("http://", "").Split(new string[] { "?" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+				List<string> folders = str.Replace("http://", "").Replace("https://", "").Split(new string[] { "?" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 				folders.RemoveAt(folders.Count - 1);
 
 				//make sure the directory exists
